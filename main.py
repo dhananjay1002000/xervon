@@ -117,3 +117,9 @@ async def object_detect(
 @app.get("/")
 def read_root():
     return {"message": "Image Processing API with rate limiting, abuse monitoring, and NSFW detection is running!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("your_module_name:app", host="0.0.0.0", port=port, reload=True)
+
