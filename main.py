@@ -12,6 +12,7 @@ import numpy as np
 import cv2
 import logging
 import time
+import os
 
 # from nsfwdetection.model import Model  # <--- NEW IMPORT
 
@@ -34,8 +35,10 @@ async def verify_api_key(api_key: str = Security(api_key_header)):
 # --- Initialize Redis connection for rate limiting ---
 @app.on_event("startup")
 async def startup():
-    redis = await aioredis.from_url("redis://localhost", encoding="utf-8", decode_responses=True)
+    redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
+    redis = await aioredis.from_url(redis_url, encoding="utf-8", decode_responses=True)
     await FastAPILimiter.init(redis)
+
 
 # --- Log all requests for monitoring and abuse detection ---
 @app.middleware("http")
