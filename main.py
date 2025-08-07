@@ -33,11 +33,11 @@ async def verify_api_key(api_key: str = Security(api_key_header)):
     return api_key
 
 # --- Initialize Redis connection for rate limiting ---
-@app.on_event("startup")
-async def startup():
-    redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
-    redis = await aioredis.from_url(redis_url, encoding="utf-8", decode_responses=True)
-    await FastAPILimiter.init(redis)
+# @app.on_event("startup")
+# async def startup():
+#     redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
+#     redis = await aioredis.from_url(redis_url, encoding="utf-8", decode_responses=True)
+#     await FastAPILimiter.init(redis)
 
 
 # --- Log all requests for monitoring and abuse detection ---
