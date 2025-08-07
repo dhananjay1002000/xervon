@@ -32,7 +32,7 @@ async def verify_api_key(api_key: str = Security(api_key_header)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or missing API key")
     return api_key
 
---- Initialize Redis connection for rate limiting ---
+# --- Initialize Redis connection for rate limiting ---
 @app.on_event("startup")
 async def startup():
     redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379")
